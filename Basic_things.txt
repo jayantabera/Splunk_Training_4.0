@@ -1,0 +1,22 @@
+http://127.0.0.1:8000/en-US/app/launcher/home#
+
+8000 = splunk web port 
+en-US = splunk on this language 
+app = folder name 
+lanuncher = app name 
+
+
+https://splunkbase.splunk.com/
+
+Host - System name 
+source - actual path of data 
+sourcetype = loical secrigation of data 
+
+| = pipe 
+
+search 
+table 
+dedup 
+fields
+where
+rename 
