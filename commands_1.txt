@@ -1,0 +1,38 @@
+| = pipe 
+## Search - is used for searching any value or any event from raw data . 
+* = wildcurd
+NOT = except this one
+OR = either or condition
+AND = both
+[note: fields names eare case sensitive]
+
+## table = | table <field_name>,<field_name>,<field_name>
+## table = | table <field_name> <field_name> <field_name> 
+
+name       location 
+zafar from mumbai
+vinay from kolkata
+jayanta from pune
+anmay from pune 
+ayan from kolkata
+
+| table name,location
+
+ ##    dedup = is used for removing the dupicate value from table 
+ | dedup <field_name>,<field_name>,<field_name>
+ 
+## fields = filter the fields which one we want to work
+ | fields <field_name> - filter the fields
+ 
+ | fields - <field_name> - "-" works like not operater
+ 
+ 
+ 
+where 
+rename 
+replace
+head
+tail
+sort
+reverse
+ 
