@@ -1,0 +1,33 @@
+##   where --->>>>> used for comparing two fields 
+| where status>bytes
+[case sensetive]
+
+##  rename ---->>>> used for rename the fields
+|rename <old_field_name> as <new_field_name>
+|rename "method" as "vinay"
+| rename "method" as "vinay","status" as "nikhil"
+
+##   replace -->> used for replace the field value
+|replace <old_value> with <new_value> in <field_name>
+| replace "GET" with "Ankit" in method
+
+* -->wildcurd -- means all
+
+##   head -->> by default shows 1st 10 values
+if you want to see more event just put 
+|head 100 
+
+##   tail --->> by default it shows last 10 values
+
+##   sort ->>>
+assending or dessending order arrange 
+ |sort bytes --> assending
+ |sort - bytes ----> dessending 
+ 
+##    reverse[]
+
+
+#######     transforming commands
+top
+rare
+stats 
