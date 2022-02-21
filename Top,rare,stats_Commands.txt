@@ -1,0 +1,55 @@
+top , rare , stats --> transforming or reporting command .its maily used for visulization purpose .
+
+##############     Top -->>> used for facing maximum occurance of the field values. ###########
+ | top <field_name>
+ 
+ Which file counting high this will show 1st & his percentage .
+ 
+ --->>> Attributes ---->>
+ limit = 100
+ showperc=f
+ showcount=f
+ 
+ limit=0 --- all
+ 
+ rare --- 
+ 
+ ##################       stats --- is used for visulization tool 99% quary used stats command for statictical aggrigatios like count,min,max,avg,sum,dc(unic count),list,values. #######################
+ 
+ |stats <stats_funtion> by <field_name> ---- > Structure 
+ 
+ | stats count - its shows all event count.
+ 
+ | stats count by method - it will shows the count of field values.
+ 
+ rename ----->>> 
+ | stats count as "Vinay" by method -- we can directely rename fields using stats command.
+ 
+  --->>> Attributes ---->> 
+ 
+ min - return the minimum vaue of a field. 
+ | stats min(bytes) by method,file
+ | stats min(bytes) as bytes by method,file
+ --> index=_internal sourcetype=splunkd_ui_access | stats min(bytes) as bytes by method,file
+ 
+ max --- its return the maximum values of a field
+ 
+ --> index=_internal sourcetype=splunkd_ui_access | stats max(bytes) as bytes by method
+ 
+ --> avg --- index=_internal sourcetype=splunkd_ui_access | stats max(bytes) as max_bytes,min(bytes) as min_bytes,avg(bytes) as avg_bytes by method
+ 
+ sum -  returens summation of field values .
+ --> index=_internal sourcetype=splunkd_ui_access | stats sum(bytes) as total_bytes by method
+ 
+ values --- its rerutens list of values of a field .
+ -->  index=_internal sourcetype=splunkd_ui_access | stats values(status) as status by method
+  
+  list --- >> shows list of valuesindex=_internal sourcetype=splunkd_ui_access | stats list(status) as status by method
+  
+  dc ---- its shows unique count of field values .
+  --> index=_internal sourcetype=splunkd_ui_access | stats dc(status) as status by method
+  
+  
+  
+  
+  
