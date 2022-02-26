@@ -1,0 +1,74 @@
+###   addcoltotals ----- used for newmarical field values it will appeed the values coloum wise .
+                  creat a new row below where we able to see the summation .
+|addcoltotals <field_name>
+
+| addcoltotals labelfield=TOTAL label=SUM
+
+
+####   addtotals --->>> used for newmarical field values 
+                 adding the field values through row wise & creat a new coloum.
+    attribues are same 
+	
+	attribute -->>>   col=t --- we are able to do coloum wise summation use this attribute.
+	## index=_internal sourcetype=splunkd_ui_access | table method,status,bytes | dedup method,status,bytes | replace "GET" with "vinay","POST" with "ankith" in method | addtotals col=t labelfield=Sum label=sum2
+	
+	
+
+
+
+####   append ---->>> it marge two quary and creat new row (row wise)
+
+quary_1 | append [|search quary_2] 
+
+
+#### appendcols ---->>>it marge two quary and creat new col (col wise)
+
+quary_1 | appendcols [|search quary_2] | appendcols [|search quary_3]
+
+
+
+
+
+#####       eval(evaluate) --- we can use any mathamatical logic .+,%,*   ,,,, not filter             
+|eval <new_field_name>=logic
+| eval "summation"=status*bytes, "div"=bytes/status, "sub"=bytes-status
+
+.(dot)-concatinate ---- two values marge side by side ..
+index=_internal sourcetype=splunkd_ui_access | table method,status,bytes | dedup method,status,bytes | eval "summation"=status*bytes, "div"=bytes/status, "sub"=bytes-status | eval "name"=method." = ".status
+if you wanty to add any string or sign or space just put inside "<sign/space/string/anything>"
+
+round up ---- >>
+|eval "new_field_name"=round(field_name,<digit>)     [round upto digit, you can round upto zero decimal]
+
+index=_internal sourcetype=splunkd_ui_access | table method,status,bytes | dedup method,status,bytes | eval "summation"=status*bytes, "div"=bytes/status, "sub"=bytes-status | eval "name"=method." = ".status |eval "new_field_name"=round(div,1)
+
+index=_internal sourcetype=splunkd_ui_access | table method,status,bytes | dedup method,status,bytes | eval "summation"=status*bytes, "div"=bytes/status, "sub"=bytes-status | eval "name"=method." = ".status |eval "new_field_name"=round((((status/bytes)*100)/2),1)
+
+uppercase & lowercase ------ >>this func we use for small & capital letter ..
+
+| eval <new_field_name>=lower(<field_name>)
+index=_internal sourcetype=splunkd_ui_access | table method,status,bytes | dedup method,status,bytes | eval "summation"=status*bytes, "div"=bytes/status, "sub"=bytes-status | eval "name"=method." = ".status |eval "new_field_name"=round((((status/bytes)*100)/2),1) | eval new_field_name_2=lower(method)
+
+| eval <new_field_name>=upper(<field_name>)
+index=_internal sourcetype=splunkd_ui_access | table method,status,bytes | dedup method,status,bytes | eval "summation"=status*bytes, "div"=bytes/status, "sub"=bytes-status | eval "name"=method." = ".status |eval "new_field_name"=round((((status/bytes)*100)/2),1) | eval new_field_name_2=lower(method) | eval new_field_name_3=upper(new_field_name_2)
+
+Condition Function ----->>>>>>
+if.....else
+
+|eval <new_field_name>=if(condition,value,else)    --- must have to give else condition 
+
+index=_internal sourcetype=splunkd_ui_access | table method,status,bytes | dedup method,status,bytes | eval "summation"=status*bytes, "div"=bytes/status, "sub"=bytes-status | eval "name"=method." = ".status |eval "new_field_name"=round((((status/bytes)*100)/2),1) | eval new_field_name_2=lower(method) | eval new_field_name_3=upper(new_field_name_2) | eval "HTTP_Status"=if(status=200,"Good",if(status=303,"unable","Bad"))
+
+case ---->>>
+| eval <new_field_name>=case(case1,value1,case2,value2,case3,value3 .... ,universal true,else)
+
+index=_internal sourcetype=splunkd_ui_access | table method,status,bytes | dedup method,status,bytes | eval "summation"=status*bytes, "div"=bytes/status, "sub"=bytes-status | eval "name"=method." = ".status |eval "new_field_name"=round((((status/bytes)*100)/2),1) | eval new_field_name_2=lower(method) | eval new_field_name_3=upper(new_field_name_2) | eval "HTTP_Status"=if(status=200,"Good",if(status=303,"unable","Bad")) | eval "new_bytes"=case(bytes<1000,"low_memory",bytes>999 AND bytes<2000,"good_memory",1=1,"high_memory")
+
+
+For wildcurd func we use "like" atribute & the sign is "%"
+| eval new=if(method like "%T","ok","false")
+
+
+
+
+
